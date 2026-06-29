@@ -212,6 +212,52 @@ static int ventoy_browser_iterate_partition(struct grub_disk *disk, const grub_p
     return 0;
 }
 
+static int ventoy_browser_iterate_partitions(struct grub_disk *disk, const grub_partition_t partition, void *data)
+{
+    char partname[64];
+    char buf[64];
+    grub_device_t dev;
+    grub_fs_t fs;
+    char *Label = NULL;
+
+    (void)data;
+
+    if (partition->number == 1 && g_vtoy_dev && grub_strcmp(disk->name, g_vtoy_dev) == 0)
+    {
+        return 0;
+    }
+
+    grub_snprintf(partname, sizeof(partname) - 1, "%s,%d", disk->name, partition->number + 1);
+
+    dev = grub_device_open(partname);
+    if (!dev)
+    {
+        return 0;
+    }
+
+    fs = grub_fs_probe(dev);
+    if (!fs)
+    {
+        grub_device_close(dev);
+        return 0;
+    }
+
+    fs->fs_label(dev, &Label);
+
+    if (ventoy_check_file_exist("(%s)/.ventoyignore", partname))
+    {
+        grub_device_close(dev);
+        return 0;
+    }
+
+    grub_snprintf(buf, sizeof(buf), "0x%lx", (ulong)fs);
+    grub_env_set("bs", buf);
+    grub_env_export("bs");
+
+    grub_device_close(dev);
+    return 0;
+}
+
 static int ventoy_browser_iterate_disk(const char *name, void *data)
 {
     grub_disk_t disk;
@@ -225,6 +271,25 @@ static int ventoy_browser_iterate_disk(const char *name, void *data)
     if (disk)
     {
         grub_partition_iterate(disk, ventoy_browser_iterate_partition, data);
+        grub_disk_close(disk);
+    }
+
+    return 0;
+}
+
+static int ventoy_browser_iterate_diskfm(const char *name, void *data)
+{
+    grub_disk_t disk;
+
+    if (name[0] != 'h')
+    {
+        return 0;
+    }
+
+    disk = grub_disk_open(name);
+    if (disk)
+    {
+        grub_partition_iterate(disk, ventoy_browser_iterate_partitions, data);
         grub_disk_close(disk);
     }
 
@@ -650,3 +715,27 @@ grub_err_t ventoy_cmd_browser_disk(grub_extcmd_context_t ctxt, int argc, char **
     VENTOY_CMD_RETURN(GRUB_ERR_NONE);
 }
 
+grub_err_t ventoy_cmd_browser_diskfm(grub_extcmd_context_t ctxt, int argc, char **args)
+{
+    char cfgfile[64];
+    browser_mbuf mbuf;
+
+    (void)ctxt;
+    (void)argc;
+    (void)args;
+
+    g_vtoy_dev = grub_env_get("vtoydev");
+
+    if (!ventoy_browser_mbuf_alloc(&mbuf))
+    {
+        return 1;
+    }
+
+    grub_disk_dev_iterate(ventoy_browser_iterate_diskfm, &mbuf);
+
+    grub_snprintf(cfgfile, sizeof(cfgfile), "configfile mem:0x%lx:size:%d", (ulong)mbuf.buf, mbuf.pos);
+    grub_script_execute_sourcecode(cfgfile);
+
+    ventoy_browser_mbuf_free(&mbuf);
+    VENTOY_CMD_RETURN(GRUB_ERR_NONE);
+}
