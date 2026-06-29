@@ -6963,7 +6963,8 @@ int ventoy_env_init(void)
 static cmd_para ventoy_cmds[] =
 {
     { "vt_browser_disk",  ventoy_cmd_browser_disk,  0, NULL, "",   "",    NULL },
-    { "vt_browser_dir",  ventoy_cmd_browser_dir,  0, NULL, "",   "",    NULL },
+    { "vt_browser_fm",  ventoy_cmd_browser_diskfm,  0, NULL, "",   "",    NULL },
+	{ "vt_browser_dir",  ventoy_cmd_browser_dir,  0, NULL, "",   "",    NULL },
     { "vt_incr",  ventoy_cmd_incr,  0, NULL, "{Var} {INT}",   "Increase integer variable",    NULL },
     { "vt_mod",  ventoy_cmd_mod,  0, NULL, "{Int} {Int} {Var}",   "mod integer variable",    NULL },
     { "vt_strstr",  ventoy_cmd_strstr,  0, NULL, "",   "",    NULL },
