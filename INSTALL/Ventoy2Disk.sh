@@ -1,7 +1,5 @@
 #!/bin/sh
 
-OLDDIR=$(pwd)
-
 if ! [ -f ./tool/ventoy_lib.sh ]; then
     if [ -f ${0%Ventoy2Disk.sh}/tool/ventoy_lib.sh ]; then
         cd ${0%Ventoy2Disk.sh}    
@@ -21,7 +19,7 @@ elif uname -m | grep -E -q 'mips64'; then
 else
     export TOOLDIR=i386
 fi
-export PATH="$OLDDIR/tool/$TOOLDIR:$PATH"
+export PATH="$(pwd)/tool/$TOOLDIR:$PATH"
 
 
 echo ''
@@ -42,6 +40,52 @@ if ! [ -f ./boot/boot.img ]; then
     exit 1
 fi
 
+echo "############# Ventoy2Disk $* [$TOOLDIR] ################" >> ./log.txt
+date >> ./log.txt
+
+#decompress tool
+echo "decompress tools" >> ./log.txt
+cd ./tool/$TOOLDIR
+
+ls *.xz > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    [ -f ./xzcat ] && chmod +x ./xzcat
+
+    for file in $(ls *.xz); do
+        echo "decompress $file" >> ./log.txt
+        xzcat $file > ${file%.xz}
+        [ -f ./${file%.xz} ] && chmod +x ./${file%.xz}
+        [ -f ./$file ] && rm -f ./$file
+    done
+fi
+
+#use static linked mkexfatfs for musl-libc environment
+if [ -f mkexfatfs_static ]; then
+    if ldd --version 2>&1 | grep -qi musl; then
+        mv mkexfatfs mkexfatfs_shared
+        mv mkexfatfs_static mkexfatfs
+    else
+        if ./mkexfatfs -V > /dev/null 2>&1; then
+            echo "mkexfatfs can not run, check static version" >> ./log.txt
+        else
+            if ./mkexfatfs_static -V > /dev/null 2>&1; then
+                echo "Use static version of mkexfatfs" >> ./log.txt
+                mv mkexfatfs mkexfatfs_shared
+                mv mkexfatfs_static mkexfatfs
+            fi
+        fi
+    fi
+fi
+
+cd ../../
+chmod +x -R ./tool/$TOOLDIR
+
+
+if [ -f /bin/bash ]; then
+    /bin/bash ./tool/VentoyWorker.sh $*
+else
+    ash ./tool/VentoyWorker.sh $*
+fi
 echo "############# Ventoy2Disk $* [$TOOLDIR] ################" >> ./log.txt
 date >> ./log.txt
 
