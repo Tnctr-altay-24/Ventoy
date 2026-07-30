@@ -228,7 +228,8 @@ DRESULT disk_write (
             return RES_OK;
         }
 
-        sector++;
+        buff += 512;
+		sector++;
         count--;
     }
 
