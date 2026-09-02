@@ -2252,7 +2252,6 @@ int ventoy_fill_data(grub_uint32_t buflen, char *buffer)
     0x79, 0x2E, 0x6E, 0x65,
     0x74, 0x00
 	};
-	ventoy_guid guid = VENTOY_GUID;
 	
 	/* Easter egg :) It will be appreciated if you reserve it, but NOT mandatory. */
     #pragma GCC diagnostic push
