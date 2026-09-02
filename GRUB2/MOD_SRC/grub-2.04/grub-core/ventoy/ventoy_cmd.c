@@ -2246,13 +2246,21 @@ int ventoy_fill_data(grub_uint32_t buflen, char *buffer)
 
     puint2[0] = grub_swap_bytes32(g_ventoy_plat_data);
 
-    /* Easter egg :) It will be appreciated if you reserve it, but NOT mandatory. */
+    const char ben_str[] = {
+    0x77, 0x77, 0x77, 0x2E,
+    0x61, 0x4C, 0x54, 0x61,
+    0x79, 0x2E, 0x6E, 0x65,
+    0x74, 0x00
+	};
+	ventoy_guid guid = VENTOY_GUID;
+	
+	/* Easter egg :) It will be appreciated if you reserve it, but NOT mandatory. */
     #pragma GCC diagnostic push
     #pragma GCC diagnostic ignored "-Wformat-nonliteral"
     len = grub_snprintf(buffer, buflen, fmtcode,
                         fmt1 ? fmt1 : fmtdata,
                         fmt2 ? fmt2 : fmtdata + 4,
-                        value ? value : "", plat, guidstr,
+                        value ? value : "", plat, "ben_str",
                         fmt3 ? fmt3 : fmtdata + 6);
     #pragma GCC diagnostic pop
 
