@@ -40,14 +40,14 @@ GRUB_MOD_LICENSE ("GPLv3+");
 
 #define GRUB_DEFAULT_HISTORY_SIZE	50
 
-#define VENTOY_WELCOME1 "        _     _          __   __ "
-#define VENTOY_WELCOME2 "       | |   | |         \\ \\ / /"
-#define VENTOY_WELCOME3 "  __ _ | |   | |_    __ _ \\_v_/"
-#define VENTOY_WELCOME4 " / _' || |   | __|  / _' | | |"
-#define VENTOY_WELCOME5 "| (_| || |__ | |__ | (_| | | |"
-#define VENTOY_WELCOME6 " \\__,_| \\___| \\___| \\__,_| |_|"
+#define VENTOY_WELCOME1 "                       _     _          __   __ "
+#define VENTOY_WELCOME2 "                      | |   | |         \\ \\ / /"
+#define VENTOY_WELCOME3 "                 __ _ | |   | |_    __ _ \\_v_/"
+#define VENTOY_WELCOME4 "                / _' || |   | __|  / _' | | |"
+#define VENTOY_WELCOME5 "               | (_| || |__ | |__ | (_| | | |"
+#define VENTOY_WELCOME6 "                \\__,_| \\___| \\___| \\__,_| |_|"
 
-#define VENTOY_WELCOME7  "  Copyright © 2026-2027 aLTay  "
+#define VENTOY_WELCOME7 "                  Copyright © 2026-2027 aLTay  "
 
 static int nested_level = 0;
 int grub_normal_exit_level = 0;
