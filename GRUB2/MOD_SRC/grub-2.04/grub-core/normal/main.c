@@ -34,6 +34,7 @@
 #include <grub/charset.h>
 #include <grub/script_sh.h>
 #include <grub/bufio.h>
+#include <grub/time.h>
 
 GRUB_MOD_LICENSE ("GPLv3+");
 
