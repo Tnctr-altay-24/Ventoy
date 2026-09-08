@@ -1618,7 +1618,6 @@ module = {
   common = gfxmenu/gui_progress_bar.c;
   common = gfxmenu/gui_util.c;
   common = gfxmenu/gui_string_util.c;
-  common = gfxmenu/animation/engine_core.c;
 };
 
 /* Added by longpanda for Ventoy Project */
