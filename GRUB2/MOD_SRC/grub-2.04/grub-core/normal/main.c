@@ -286,8 +286,6 @@ grub_normal_execute (const char *config, int nested, int batch)
 
   grub_boot_time ("Executing config file");
 
-  grub_setcolorstate (GRUB_TERM_COLOR_HIGHLIGHT);
-  
   grub_printf ("%s\n", VENTOY_WELCOME1);
   grub_printf ("%s\n", VENTOY_WELCOME2);
   grub_printf ("%s\n", VENTOY_WELCOME3);
@@ -297,8 +295,6 @@ grub_normal_execute (const char *config, int nested, int batch)
   grub_printf ("%s\n", VENTOY_WELCOME7);
 
   grub_millisleep (100);
-
-  grub_setcolorstate (GRUB_TERM_COLOR_STANDARD);
 
   if (config)
     {
