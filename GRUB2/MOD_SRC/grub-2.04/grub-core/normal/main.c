@@ -512,6 +512,40 @@ grub_mini_cmd_clear (struct grub_command *cmd __attribute__ ((unused)),
 
 static grub_command_t cmd_clear;
 
+static grub_command_t cmd_ventoy_about;
+
+static grub_err_t
+grub_cmd_ventoy_about (struct grub_command *cmd __attribute__ ((unused)),
+                       int argc __attribute__ ((unused)),
+                       char *argv[] __attribute__ ((unused)))
+{
+  grub_cls ();
+
+  grub_term_highlight_color = 0x05;
+
+  grub_setcolorstate (GRUB_TERM_COLOR_HIGHLIGHT);
+
+  grub_printf ("%s\n", VENTOY_WELCOME1);
+  grub_printf ("%s\n", VENTOY_WELCOME2);
+  grub_printf ("%s\n", VENTOY_WELCOME3);
+  grub_printf ("%s\n", VENTOY_WELCOME4);
+  grub_printf ("%s\n", VENTOY_WELCOME5);
+  grub_printf ("%s\n", VENTOY_WELCOME6);
+  grub_printf ("%s\n", VENTOY_WELCOME7);
+
+  grub_setcolorstate (GRUB_TERM_COLOR_STANDARD);
+
+  grub_printf ("\n");
+  grub_printf ("              Press ESC to return...\n");
+
+  while (grub_getkey () != GRUB_TERM_ESC)
+    ;
+
+  grub_cls ();
+
+  return GRUB_ERR_NONE;
+}
+
 static void (*grub_xputs_saved) (const char *str);
 static const char *features[] = {
   "feature_chainloader_bpb", "feature_ntldr", "feature_platform_search_hint",
@@ -545,6 +579,11 @@ GRUB_MOD_INIT(normal)
   cmd_clear =
     grub_register_command ("clear", grub_mini_cmd_clear,
 			   0, N_("Clear the screen."));
+
+  cmd_ventoy_about =
+    grub_register_command ("ventoy_about",
+			   grub_cmd_ventoy_about,
+			   0, N_("Show Ventoy information."));
 
   grub_set_history (GRUB_DEFAULT_HISTORY_SIZE);
 
@@ -595,4 +634,5 @@ GRUB_MOD_FINI(normal)
   grub_register_variable_hook ("pager", 0, 0);
   grub_fs_autoload_hook = 0;
   grub_unregister_command (cmd_clear);
+  grub_unregister_command (cmd_ventoy_about);
 }
