@@ -296,6 +296,7 @@ grub_normal_execute (const char *config, int nested, int batch)
   grub_printf ("%s\n", VENTOY_WELCOME4);
   grub_printf ("%s\n", VENTOY_WELCOME5);
   grub_printf ("%s\n", VENTOY_WELCOME6);
+  grub_printf ("\n");
   grub_printf ("%s\n", VENTOY_WELCOME7);
   
   grub_setcolorstate (GRUB_TERM_COLOR_STANDARD);
@@ -521,24 +522,22 @@ grub_cmd_ventoy_about (struct grub_command *cmd __attribute__ ((unused)),
 {
   grub_cls ();
 
-  grub_term_highlight_color = 0x05;
-
-  grub_setcolorstate (GRUB_TERM_COLOR_HIGHLIGHT);
-
   grub_printf ("%s\n", VENTOY_WELCOME1);
   grub_printf ("%s\n", VENTOY_WELCOME2);
   grub_printf ("%s\n", VENTOY_WELCOME3);
   grub_printf ("%s\n", VENTOY_WELCOME4);
   grub_printf ("%s\n", VENTOY_WELCOME5);
   grub_printf ("%s\n", VENTOY_WELCOME6);
-  grub_printf ("%s\n", VENTOY_WELCOME7);
-
-  grub_setcolorstate (GRUB_TERM_COLOR_STANDARD);
-
   grub_printf ("\n");
-  grub_printf ("              Press ESC to return...\n");
+  grub_printf ("%s\n", VENTOY_WELCOME7);
+  grub_printf ("\n");
+  grub_printf ("Ventoy Versiyon: VTOY_TEXT_MENU_VER");
+  grub_printf ("\n");
+  grub_printf ("Dil: vtCurLang");
+  grub_printf ("\n");
+  grub_printf ("VTLANG_RETURN_PREVIOUS...\n");
 
-  while (grub_getkey () != GRUB_TERM_ESC)
+  /* while (grub_getkey () != GRUB_TERM_ESC) */
     ;
 
   grub_cls ();
