@@ -838,7 +838,8 @@ run_menu (grub_menu_t menu, int nested, int *auto_boot)
 
 	  switch (c)
 	    {
-	    case GRUB_TERM_KEY_HOME:
+	    
+		case GRUB_TERM_KEY_HOME:
 	    case GRUB_TERM_CTRL | 'a':
 	      current_entry = 0;
 	      menu_set_chosen_entry (menu, current_entry);
@@ -1035,7 +1036,13 @@ run_menu (grub_menu_t menu, int nested, int *auto_boot)
             VTOY_COMM_HOTKEY("VTOY_LANG_CMD");
             break;
         }
-        case (GRUB_TERM_CTRL | 'm'):
+        case 'a':
+		case 'A':
+		{
+    		VTOY_COMM_HOTKEY("VTOY_ABOUT_CMD");
+    		break;
+		}
+		case (GRUB_TERM_CTRL | 'm'):
         case 'm':
         {
             if (0 == g_ventoy_secondary_menu_on)
