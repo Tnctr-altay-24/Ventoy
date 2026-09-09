@@ -299,8 +299,6 @@ grub_normal_execute (const char *config, int nested, int batch)
   grub_printf ("%s\n", VENTOY_WELCOME7);
   
   grub_setcolorstate (GRUB_TERM_COLOR_STANDARD);
-  
-  /* grub_millisleep (500);
 
   if (config)
     {
