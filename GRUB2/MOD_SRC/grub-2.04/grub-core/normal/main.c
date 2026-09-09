@@ -48,6 +48,9 @@ GRUB_MOD_LICENSE ("GPLv3+");
 #define VENTOY_WELCOME6 " \\__,_| \\___| \\___| \\__,_| |_|   "
 #define VENTOY_WELCOME7 "   Copyright © 2026-2027 aLTay    "
 
+#define FONT_SPACE 20
+#define FONT_HEIGH 16
+
 static int nested_level = 0;
 int grub_normal_exit_level = 0;
 
