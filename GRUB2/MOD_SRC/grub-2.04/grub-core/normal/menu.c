@@ -838,7 +838,6 @@ run_menu (grub_menu_t menu, int nested, int *auto_boot)
 
 	  switch (c)
 	    {
-	    
 		case GRUB_TERM_KEY_HOME:
 	    case GRUB_TERM_CTRL | 'a':
 	      current_entry = 0;
