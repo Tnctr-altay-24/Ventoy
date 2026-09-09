@@ -538,8 +538,6 @@ grub_cmd_ventoy_about (struct grub_command *cmd __attribute__ ((unused)),
   grub_printf ("VTLANG_RETURN_PREVIOUS...\n");
 
   /* while (grub_getkey () != GRUB_TERM_ESC) */
-    ;
-
   grub_cls ();
 
   return GRUB_ERR_NONE;
