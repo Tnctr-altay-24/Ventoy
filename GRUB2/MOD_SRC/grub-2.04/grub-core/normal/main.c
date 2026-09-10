@@ -535,7 +535,7 @@ grub_cmd_ventoy_about (struct grub_command *cmd __attribute__ ((unused)),
   grub_printf ("\n");
   grub_printf("Platform:%s\n", grub_env_get("VTOY_TEXT_MENU_VER"));
   grub_printf ("\n");
-  grub_printf("Mimari versiyon:%s\n", grub_env_get("VTOY_TEXT_MENU_VER"));
+  grub_printf("Mimari versiyon:%s\n", grub_env_get("grub_cpu_platform"));
   grub_printf ("\n");
   grub_printf("%s\n", ESC ile Ana Menu);
 
