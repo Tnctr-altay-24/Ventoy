@@ -535,7 +535,6 @@ grub_cmd_ventoy_about (struct grub_command *cmd __attribute__ ((unused)),
   grub_printf ("\n");
   grub_printf ("%s\n", grub_env_get("VTOY_MENU_LANGUAGE"));
   grub_printf ("\n");
-  grub_printf("%s\n", VTLANG_RETURN_PREVIOUS);
 
   while (grub_getkey () != GRUB_TERM_ESC)
   grub_cls ();
