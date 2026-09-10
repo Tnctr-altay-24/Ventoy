@@ -533,8 +533,9 @@ grub_cmd_ventoy_about (struct grub_command *cmd __attribute__ ((unused)),
   grub_printf ("\n");
   grub_printf("%s\n", grub_env_get("VTOY_TEXT_MENU_VER"));
   grub_printf ("\n");
-  grub_printf ("%s\n", grub_env_get("VTOY_MENU_LANGUAGE"));
+  grub_printf("Dil:%s\n", grub_env_get("VTOY_MENU_LANGUAGE"));
   grub_printf ("\n");
+  grub_printf("Dil:%s\n", (ESC) ile Ana Menu);
 
   while (grub_getkey () != GRUB_TERM_ESC)
   grub_cls ();
