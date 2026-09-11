@@ -536,7 +536,7 @@ grub_cmd_ventoy_about (struct grub_command *cmd __attribute__ ((unused)),
   grub_printf ("\n");
   grub_printf("Dil:%s\n", grub_env_get("VTOY_MENU_LANGUAGE"));
   grub_printf ("\n");
-  grub_printf("Klavye:%s\n", grub_env_get("VTOY_DEFAULT_MENU_KBD_LAYOUT"));
+  grub_printf("Klavye:%s\n", grub_env_get("set_keyboard_layout"));
   grub_printf ("\n");
   grub_printf("Platform:%s\n", grub_env_get("grub_cpu_platform"));
   grub_printf ("\n");
