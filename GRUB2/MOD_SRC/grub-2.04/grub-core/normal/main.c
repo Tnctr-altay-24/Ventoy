@@ -46,9 +46,7 @@ GRUB_MOD_LICENSE ("GPLv3+");
 #define VENTOY_WELCOME4 " / _' || |   | __|  / _' | | |   "
 #define VENTOY_WELCOME5 "| (_| || |__ | |__ | (_| | | |   "
 #define VENTOY_WELCOME6 " \\__,_| \\___| \\___| \\__,_| |_|   "
-#define VENTOY_WELCOME7 "   Copyright © 2026-2027 aLTay    "
-
-grub_millisleep (500);
+#define VENTOY_WELCOME7 " Copyright © 2026-2027 aLTay    "
 
 static int nested_level = 0;
 int grub_normal_exit_level = 0;
@@ -303,6 +301,8 @@ grub_normal_execute (const char *config, int nested, int batch)
   
   grub_setcolorstate (GRUB_TERM_COLOR_STANDARD);
 
+  grub_millisleep (500);
+
   if (config)
     {
       menu = read_config_file (config);
@@ -311,7 +311,7 @@ grub_normal_execute (const char *config, int nested, int batch)
       grub_errno = GRUB_ERR_NONE;
     }
 
-  grub_boot_time ("Executed config file");
+  /* grub_boot_time ("Executed config file"); */
 
   if (! batch)
     {
