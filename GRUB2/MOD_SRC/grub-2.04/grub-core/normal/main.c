@@ -48,6 +48,8 @@ GRUB_MOD_LICENSE ("GPLv3+");
 #define VENTOY_WELCOME6 " \\__,_| \\___| \\___| \\__,_| |_|   "
 #define VENTOY_WELCOME7 "   Copyright © 2026-2027 aLTay    "
 
+grub_millisleep (500);
+
 static int nested_level = 0;
 int grub_normal_exit_level = 0;
 
@@ -531,13 +533,18 @@ grub_cmd_ventoy_about (struct grub_command *cmd __attribute__ ((unused)),
   grub_printf ("\n");
   grub_printf ("%s\n", VENTOY_WELCOME7);
   grub_printf ("\n");
+  grub_printf ("\n");
   grub_printf("Dil:%s\n", grub_env_get("VTOY_MENU_LANGUAGE"));
+  grub_printf ("\n");
+  grub_printf("Klavye:%s\n", grub_env_get("VTOY_DEFAULT_MENU_KBD_LAAYOUT"));
   grub_printf ("\n");
   grub_printf("Platform:%s\n", grub_env_get("grub_cpu_platform"));
   grub_printf ("\n");
   grub_printf("Mimari versiyon:%s\n", grub_env_get("VTOY_TEXT_MENU_VER"));
   grub_printf ("\n");
-  grub_printf("Ana Menuye icin (ESC)\n");
+  grub_printf ("\n");
+  grub_printf ("%s\n", grub_env_get("VTLANG_RETURN_PREVIOUS"));
+  /* grub_printf("Ana Menu icin (ESC)\n"); */
 
   while (grub_getkey () != GRUB_TERM_ESC)
   grub_cls ();
