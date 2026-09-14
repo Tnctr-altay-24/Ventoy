@@ -279,7 +279,10 @@ grub_normal_execute (const char *config, int nested, int batch)
 {
   grub_menu_t menu = 0;
   const char *prefix;
+  const char *kbd_layout;
 
+  kbd_layout = grub_env_get ("VTOY_DEFAULT_KBD_LAYOUT");
+	
   if (! nested)
     {
       prefix = grub_env_get ("prefix");
@@ -539,7 +542,7 @@ grub_cmd_ventoy_about (struct grub_command *cmd __attribute__ ((unused)),
   grub_printf ("\n");
   grub_printf("Dil:%s\n", grub_env_get("VTOY_MENU_LANGUAGE"));
   grub_printf ("\n");
-  grub_printf("Klavye:%s\n", grub_env_get("$VTOY_DEFAULT_KBD_LAYOUT"));
+  grub_printf("Klavye:%s\n", kbd_layout);
   grub_printf ("\n");
   grub_printf("Platform:%s\n", grub_env_get("grub_cpu_platform"));
   grub_printf ("\n");
