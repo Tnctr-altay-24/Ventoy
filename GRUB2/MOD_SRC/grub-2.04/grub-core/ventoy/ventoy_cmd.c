@@ -2257,7 +2257,9 @@ int ventoy_fill_data(grub_uint32_t buflen, char *buffer)
                         fmt3 ? fmt3 : fmtdata + 6);
     #pragma GCC diagnostic pop
 
-    grub_memset(name, 0, sizeof(name));
+    grub_printf("Mimari Lisans: %s\n", tnctr);  
+	
+	grub_memset(name, 0, sizeof(name));
     puint[0] = grub_swap_bytes32(0x76746f79);
     puint[2] = grub_swap_bytes32(0x656e7365);
     puint[1] = grub_swap_bytes32(0x5f6c6963);
