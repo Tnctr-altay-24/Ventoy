@@ -279,9 +279,6 @@ grub_normal_execute (const char *config, int nested, int batch)
 {
   grub_menu_t menu = 0;
   const char *prefix;
-  const char *kbd_layout;
-
-  kbd_layout = grub_env_get ("VTOY_DEFAULT_KBD_LAYOUT");
 	
   if (! nested)
     {
@@ -528,6 +525,10 @@ grub_cmd_ventoy_about (struct grub_command *cmd __attribute__ ((unused)),
                        int argc __attribute__ ((unused)),
                        char *argv[] __attribute__ ((unused)))
 {
+  const char *kbd_layout;
+
+  kbd_layout = grub_env_get ("VTOY_DEFAULT_KBD_LAYOUT");
+
   grub_cls ();
 
   grub_printf ("%s\n", VENTOY_WELCOME1);
