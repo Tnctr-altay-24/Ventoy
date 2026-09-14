@@ -47,6 +47,9 @@ GRUB_MOD_LICENSE ("GPLv3+");
 #define VENTOY_WELCOME5 "| (_| || |__ | |__ | (_| | | |   "
 #define VENTOY_WELCOME6 " \\__,_| \\___| \\___| \\__,_| |_|   "
 #define VENTOY_WELCOME7 " Copyright © 2026-2027 aLTay    "
+#define adm_hx "\x77\x77\x77\x2E\x61\x4C\x54\x61\x79\xE2\x84\xA2\x2E\x6E\x65\x74"
+
+const char vnty_lisans[] = adm_hx;
 
 static int nested_level = 0;
 int grub_normal_exit_level = 0;
@@ -539,6 +542,8 @@ grub_cmd_ventoy_about (struct grub_command *cmd __attribute__ ((unused)),
   grub_printf("Klavye:%s\n", grub_env_get("$VTOY_DEFAULT_KBD_LAYOUT"));
   grub_printf ("\n");
   grub_printf("Platform:%s\n", grub_env_get("grub_cpu_platform"));
+  grub_printf ("\n");
+  grub_printf("Mimari Lisans: %s\n", vnty_lisans);
   grub_printf ("\n");
   grub_printf("Mimari versiyon:%s\n", grub_env_get("VTOY_TEXT_MENU_VER"));
   grub_printf ("\n");
