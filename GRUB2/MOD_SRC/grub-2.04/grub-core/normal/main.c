@@ -304,7 +304,7 @@ grub_normal_execute (const char *config, int nested, int batch)
   
   grub_setcolorstate (GRUB_TERM_COLOR_STANDARD);
 
-  grub_millisleep (500);
+  grub_millisleep (200);
 
   if (config)
     {
