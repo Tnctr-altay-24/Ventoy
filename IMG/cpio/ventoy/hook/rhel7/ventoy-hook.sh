@@ -24,7 +24,7 @@
 
 if [ -f $VTOY_PATH/autoinstall ]; then
     VTKS="inst.ks=file:$VTOY_PATH/autoinstall"
-    cp -a $VTOY_PATH/hook/rhel7/ventoy-autoexp.sh /lib/dracut/hooks/pre-mount/99-ventoy-autoexp.sh
+    cp -a $VTOY_PATH/hook/rhel7/ventoy-autoexp.sh $VT_DRACUT_HOOKS/pre-mount/99-ventoy-autoexp.sh
 else
     for vtParam in $($CAT /proc/cmdline); do
         if echo $vtParam | $GREP -q 'ks=file:/'; then
@@ -119,7 +119,7 @@ fi
 echo "vtNeedRepo=$vtNeedRepo" >> $VTLOG
 
 if [ "$vtNeedRepo" = "yes" ]; then
-    $BUSYBOX_PATH/cp -a $VTOY_PATH/hook/rhel7/ventoy-repo.sh /lib/dracut/hooks/pre-pivot/99-ventoy-repo.sh
+    $BUSYBOX_PATH/cp -a $VTOY_PATH/hook/rhel7/ventoy-repo.sh $VT_DRACUT_HOOKS/pre-pivot/99-ventoy-repo.sh
 fi
 
 
