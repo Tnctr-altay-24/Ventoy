@@ -6489,6 +6489,40 @@ static grub_err_t ventoy_cmd_sb_info(grub_extcmd_context_t ctxt, int argc, char 
     VENTOY_CMD_RETURN(0);
 }
 
+static grub_err_t ventoy_cmd_timeout_lock(grub_extcmd_context_t ctxt, int argc, char **args)
+{
+    (void)ctxt;
+    (void)argc;
+
+    if (args[0] && args[0][0] == '1')
+    {
+        ventoy_timeout_lock(1);
+    }
+    else
+    {
+        ventoy_timeout_lock(0);
+    }
+
+    VENTOY_CMD_RETURN(0);
+}
+
+static grub_err_t ventoy_cmd_theme_lock(grub_extcmd_context_t ctxt, int argc, char **args)
+{
+    (void)ctxt;
+    (void)argc;
+
+    if (args[0] && args[0][0] == '1')
+    {
+        ventoy_theme_lock(1);
+    }
+    else
+    {
+        ventoy_theme_lock(0);
+    }
+
+    VENTOY_CMD_RETURN(0);
+}
+
 static int ventoy_chksum_pathcmp(int chktype, char *rlpath, char *rdpath)
 {
     char *pos1 = NULL;
@@ -7141,6 +7175,8 @@ static cmd_para ventoy_cmds[] =
 
     { "vt_sbinfo", ventoy_cmd_sb_info, 0, NULL, "", "", NULL },
     { "vt_update_sb_policy", ventoy_cmd_update_sb_policy, 0, NULL, "", "", NULL },
+	{ "vt_timeout_lock", ventoy_cmd_timeout_lock, 0, NULL, "", "", NULL },
+    { "vt_theme_lock", ventoy_cmd_theme_lock, 0, NULL, "", "", NULL },
 
 };
 
