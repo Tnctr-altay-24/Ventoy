@@ -161,8 +161,8 @@ else
     vtPriority=01
 fi
 
-$BUSYBOX_PATH/cp -a $VTOY_PATH/hook/rhel7/ventoy-inotifyd-start.sh /lib/dracut/hooks/pre-udev/${vtPriority}-ventoy-inotifyd-start.sh
-$BUSYBOX_PATH/cp -a $VTOY_PATH/hook/rhel7/ventoy-timeout.sh /lib/dracut/hooks/initqueue/timeout/${vtPriority}-ventoy-timeout.sh
+$BUSYBOX_PATH/cp -a $VTOY_PATH/hook/rhel7/ventoy-inotifyd-start.sh $VT_DRACUT_HOOKS/pre-udev/${vtPriority}-ventoy-inotifyd-start.sh
+$BUSYBOX_PATH/cp -a $VTOY_PATH/hook/rhel7/ventoy-timeout.sh $VT_DRACUT_HOOKS/initqueue/timeout/${vtPriority}-ventoy-timeout.sh
 
 
 if [ -e /sbin/dmsquash-live-root ]; then
@@ -178,7 +178,7 @@ fi
 #For Fedora CoreOS
 if $GREP -i -q 'fedora.*coreos' /etc/os-release; then
     $SED "s#isosrc=.*#isosrc=/dev/mapper/ventoy#" -i /lib/systemd/system-generators/live-generator
-    cp -a $VTOY_PATH/hook/rhel7/ventoy-make-link.sh /lib/dracut/hooks/pre-mount/99-ventoy-premount-mklink.sh
+    cp -a $VTOY_PATH/hook/rhel7/ventoy-make-link.sh $VT_DRACUT_HOOKS/pre-mount/99-ventoy-premount-mklink.sh
 fi
 
 
@@ -195,4 +195,3 @@ if $GREP -qw 'rw'     /proc/cmdline; then
 fi
 fi
 fi
-
