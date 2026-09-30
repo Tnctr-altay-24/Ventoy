@@ -660,6 +660,8 @@ typedef struct chk_case_fs_dir
 int ventoy_str_all_digit(const char *str);
 int ventoy_str_all_alnum(const char *str);
 int ventoy_str_len_alnum(const char *str, int len);
+void ventoy_timeout_lock(int lock);
+void ventoy_theme_lock(int lock);
 char * ventoy_str_basename(char *path);
 grub_err_t ventoy_env_int_set(const char *name, int value);
 int ventoy_str_chrcnt(const char *str, char c);
