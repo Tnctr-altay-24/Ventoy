@@ -573,9 +573,9 @@ static int ventoy_check_official_device(grub_device_t dev)
         return ventoy_set_check_result(1 | 0x1000, "Internal Error");
     }
 
-    if (0 == ventoy_check_file_exist("(%s,2)/ventoy/ventoy.cpio", dev->disk->name) ||
-        0 == ventoy_check_file_exist("(%s,2)/grub/localboot.cfg", dev->disk->name) ||
-        0 == ventoy_check_file_exist("(%s,2)/tool/mount.exfat-fuse_aarch64", dev->disk->name))
+    if (0 == ventoy_check_file_exist("(%s,3)/ventoy/ventoy.cpio", dev->disk->name) ||
+        0 == ventoy_check_file_exist("(%s,3)/grub/localboot.cfg", dev->disk->name) ||
+        0 == ventoy_check_file_exist("(%s,3)/tool/mount.exfat-fuse_aarch64", dev->disk->name))
     {
         #ifndef GRUB_MACHINE_EFI
         if (0 == ventoy_check_file_exist("(ventoydisk)/ventoy/ventoy.cpio", dev->disk->name))
@@ -604,7 +604,7 @@ static int ventoy_check_official_device(grub_device_t dev)
     }
     else
     {
-        file = ventoy_grub_file_open(VENTOY_FILE_TYPE, "(%s,2)/ventoy/ventoy.cpio", dev->disk->name);
+        file = ventoy_grub_file_open(VENTOY_FILE_TYPE, "(%s,3)/ventoy/ventoy.cpio", dev->disk->name);
     }
     if (!file)
     {
@@ -650,18 +650,18 @@ static int ventoy_check_official_device(grub_device_t dev)
     {
         offset = partition->start + partition->len;
         partition = file->device->disk->partition;
-        if ((partition->number != 1) || (partition->len != 65536) || (offset != partition->start))
-        {
-            grub_file_close(file);
-            return ventoy_set_check_result(7, "Disk partition layout check failed.");
-        }
+        if ((partition->number != 2) || (partition->len == 0) || (offset != partition->start))
+		{
+    		grub_file_close(file);
+    		return ventoy_set_check_result(7, "Disk partition layout check failed.");
+		}
     }
 
     grub_file_close(file);
 
     if (workaround == 0)
     {
-        grub_snprintf(devname, sizeof(devname), "%s,2", dev->disk->name);
+        grub_snprintf(devname, sizeof(devname), "%s,3", dev->disk->name);
         dev2 = grub_device_open(devname);
         if (!dev2)
         {
