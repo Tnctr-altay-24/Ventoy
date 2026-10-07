@@ -618,7 +618,7 @@ static int ventoy_check_official_device(grub_device_t dev)
     }
 
     partition = dev->disk->partition;
-    if (partition->number != 0 || partition->start != 2048)
+    if (partition->number != 3 || partition->start != gpt3 lba0 degerini yaz)
     {
         return ventoy_set_check_result(5, "Ventoy partition is not start at 1MB");
     }
@@ -650,7 +650,7 @@ static int ventoy_check_official_device(grub_device_t dev)
     {
         offset = partition->start + partition->len;
         partition = file->device->disk->partition;
-        if ((partition->number != 2) || (partition->len == 0) || (offset != partition->start))
+        if ((partition->number != 3) || (partition->len == 0) || (offset != partition->start))
 		{
     		grub_file_close(file);
     		return ventoy_set_check_result(7, "Disk partition layout check failed.");
