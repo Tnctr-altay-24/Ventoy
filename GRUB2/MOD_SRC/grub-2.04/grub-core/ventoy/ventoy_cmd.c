@@ -696,10 +696,14 @@ static int ventoy_check_official_device(grub_device_t dev)
     grub_disk_read(disk, 0, 0, 512, mbr);
     grub_disk_close(disk);
 
-    if (grub_memcmp(g_check_mbr_data, mbr, 0x30) || grub_memcmp(g_check_mbr_data + 0x30, mbr + 0x190, 16))
-    {
-        return ventoy_set_check_result(12, "MBR check failed");
-    }
+    if (grub_strncmp(g_ventoy_part_info->Head.Signature, "EFI PART", 8) != 0)
+	{
+    	if (grub_memcmp(g_check_mbr_data, mbr, 0x30) ||
+        	grub_memcmp(g_check_mbr_data + 0x30, mbr + 0x190, 16))
+    	{
+        	return ventoy_set_check_result(12, "MBR check failed");
+    	}
+	}
 
     return ventoy_set_check_result(0, NULL);
 }
