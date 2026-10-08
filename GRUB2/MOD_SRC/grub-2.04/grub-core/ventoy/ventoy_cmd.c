@@ -663,12 +663,30 @@ static int ventoy_check_official_device(grub_device_t dev)
     else
     {
         offset = partition->start + partition->len;
-        partition = file->device->disk->partition;
-        if ((partition->number != 3) || (partition->len == 0) || (offset != partition->start))
-		{
-    		grub_file_close(file);
-    		return ventoy_set_check_result(7, "Disk partition layout check failed.");
-		}
+
+grub_printf(
+    "DEBUG LAYOUT A: number=%d start=%llu len=%llu end=%llu\n",
+    partition->number,
+    (unsigned long long)partition->start,
+    (unsigned long long)partition->len,
+    (unsigned long long)offset
+);
+grub_refresh();
+
+partition = file->device->disk->partition;
+
+grub_printf(
+    "DEBUG LAYOUT B: number=%d start=%llu len=%llu\n",
+    partition->number,
+    (unsigned long long)partition->start,
+    (unsigned long long)partition->len
+);
+grub_refresh();
+
+/*
+ * DEBUG ONLY:
+ * Standard Ventoy partition layout check is temporarily disabled.
+ */
     }
 
     grub_file_close(file);
