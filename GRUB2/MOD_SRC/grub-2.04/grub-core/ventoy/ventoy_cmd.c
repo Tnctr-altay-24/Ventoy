@@ -619,18 +619,25 @@ static int ventoy_check_official_device(grub_device_t dev)
 
     partition = dev->disk->partition;
 
-	grub_printf(
-    	"DEBUG GPT3: disk=%s part=%d start=%llu len=%llu\n",
-    	dev->disk->name,
-    	partition->number,
-    	(unsigned long long)partition->start,
-    	(unsigned long long)partition->len
-	);
+	grub_printf("\n\n######## GPT3 DEBUG ########\n");
+	grub_printf("DISK = %s\n", dev->disk->name);
+	grub_printf("PART = %d\n", partition->number);
+	grub_printf("START = %llu\n",
+    	(unsigned long long)partition->start);
+	grub_printf("LEN = %llu\n",
+    	(unsigned long long)partition->len);
+	grub_printf("############################\n");
 	grub_refresh();
 
 	if (partition->number != 2 ||
     	partition->start != 478009040)
 	{
+    	grub_printf("\n!!! GPT3 CHECK FAILED !!!\n");
+    	grub_printf("part=%d start=%llu\n",
+        partition->number,
+        (unsigned long long)partition->start);
+    	grub_refresh();
+
     	return ventoy_set_check_result(
         	5,
         	"Ventoy VTOYEFI partition is not GPT3"
