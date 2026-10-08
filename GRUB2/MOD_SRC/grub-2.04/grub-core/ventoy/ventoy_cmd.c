@@ -618,10 +618,20 @@ static int ventoy_check_official_device(grub_device_t dev)
     }
 
     partition = dev->disk->partition;
-    if (partition->number != 3 || partition->start != 478009040)
-    {
-        return ventoy_set_check_result(5, "Ventoy partition is not start at 1MB");
-    }
+
+	grub_printf(
+    	"DEBUG: disk=%s number=%d start=%llu len=%llu\n",
+    	dev->disk->name,
+    	partition->number,
+    	(unsigned long long)partition->start,
+    	(unsigned long long)partition->len
+	);
+	grub_refresh();
+
+	if (partition->number != 3 || partition->start != 478009040)
+	{
+    	return ventoy_set_check_result(5, "Ventoy partition is not start at 1MB");
+	}
 
     if (workaround)
     {
