@@ -630,7 +630,7 @@ static int ventoy_check_official_device(grub_device_t dev)
 
 	if (partition->number != 3 || partition->start != 478009040)
 	{
-    	return ventoy_set_check_result(5, "Ventoy partition is not start at 1MB");
+    	return ventoy_set_check_result(5, "!!! NEW BUILD TEST 12345 !!!");
 	}
 
     if (workaround)
