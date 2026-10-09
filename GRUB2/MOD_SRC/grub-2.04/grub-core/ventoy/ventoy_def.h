@@ -1127,7 +1127,7 @@ extern int g_conf_replace_new_len[VTOY_MAX_CONF_REPLACE];
 extern int g_conf_replace_new_len_align[VTOY_MAX_CONF_REPLACE];
 extern int g_ventoy_disk_bios_id;
 extern grub_uint64_t g_ventoy_disk_size;
-extern grub_uint64_t g_ventoy_disk_part_size[2];
+extern grub_uint64_t g_ventoy_disk_part_size[4];
 extern grub_uint32_t g_ventoy_plat_data;
 
 #define ventoy_unix_fill_virt(new_data, new_len) \
