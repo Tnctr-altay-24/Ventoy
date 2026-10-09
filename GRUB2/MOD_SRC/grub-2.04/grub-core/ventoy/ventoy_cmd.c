@@ -3099,7 +3099,15 @@ static grub_err_t ventoy_cmd_list_img(grub_extcmd_context_t ctxt, int argc, char
 	grub_refresh();
 	grub_millisleep(5000);
 
+	grub_printf("DEBUG: before VTOY_CMD_CHECK(1)\n");
+	grub_refresh();
+	grub_millisleep(5000);
+
 	VTOY_CMD_CHECK(1);
+
+	grub_printf("DEBUG: after VTOY_CMD_CHECK(1)\n");
+	grub_refresh();
+	grub_millisleep(5000);
 
     g_enumerate_time_checked  = 0;
     g_enumerate_start_time_ms = grub_get_time_ms();
@@ -5372,10 +5380,18 @@ else
 
 grub_printf("DEBUG CALLER: before partition size calculations\n");
 
-g_ventoy_disk_part_size[0] = ventoy_get_vtoy_partsize(0);
-g_ventoy_disk_part_size[1] = ventoy_get_vtoy_partsize(1);
+g_ventoy_disk_part_size[2] = ventoy_get_vtoy_partsize(2);
+g_ventoy_disk_part_size[3] = ventoy_get_vtoy_partsize(3);
 
-grub_printf("DEBUG CALLER: before return 0\n");
+grub_printf("DEBUG SIZE CHECK: part0=%llu bytes\n",
+            (unsigned long long)g_ventoy_disk_part_size[0]);
+grub_printf("DEBUG SIZE CHECK: part1=%llu bytes\n",
+            (unsigned long long)g_ventoy_disk_part_size[1]);
+grub_printf("DEBUG SIZE CHECK: part2=%llu bytes\n",
+            (unsigned long long)g_ventoy_disk_part_size[2]);
+grub_printf("DEBUG SIZE CHECK: part3=%llu bytes\n",
+            (unsigned long long)g_ventoy_disk_part_size[3]);
+
 grub_refresh();
 grub_millisleep(5000);
 
