@@ -120,7 +120,7 @@ int g_conf_replace_new_len_align[VTOY_MAX_CONF_REPLACE] = { 0 };
 int g_ventoy_disk_bios_id = 0;
 ventoy_gpt_info *g_ventoy_part_info = NULL;
 grub_uint64_t g_ventoy_disk_size = 0;
-grub_uint64_t g_ventoy_disk_part_size[2];
+grub_uint64_t g_ventoy_disk_part_size[4];
 
 char *g_tree_script_buf = NULL;
 int g_tree_script_pos = 0;
