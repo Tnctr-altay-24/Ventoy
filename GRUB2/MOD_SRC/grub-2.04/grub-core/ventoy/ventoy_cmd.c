@@ -3091,7 +3091,15 @@ static grub_err_t ventoy_cmd_list_img(grub_extcmd_context_t ctxt, int argc, char
         return grub_error(GRUB_ERR_BAD_ARGUMENT, "Must clear image before list");
     }
 
-    VTOY_CMD_CHECK(1);
+    grub_printf("DEBUG SIZE CHECK: part0=%llu bytes\n",
+            (unsigned long long)g_ventoy_disk_part_size[0]);
+	grub_printf("DEBUG SIZE CHECK: part1=%llu bytes\n",
+            (unsigned long long)g_ventoy_disk_part_size[1]);
+
+	grub_refresh();
+	grub_millisleep(5000);
+
+	VTOY_CMD_CHECK(1);
 
     g_enumerate_time_checked  = 0;
     g_enumerate_start_time_ms = grub_get_time_ms();
