@@ -617,7 +617,11 @@ static int ventoy_check_official_device(grub_device_t dev)
         return ventoy_set_check_result(4 | 0x1000, "VTOYEFI partition is not FAT filesystem");
     }
 
-    partition = dev->disk->partition;
+    grub_cls();
+	grub_printf("\n\n### REACHED GPT3 DEBUG BLOCK ###\n");
+	grub_refresh();
+
+	partition = dev->disk->partition;
 
 	grub_printf("\n\n######## GPT3 DEBUG ########\n");
 	grub_printf("DISK = %s\n", dev->disk->name);
