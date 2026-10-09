@@ -776,7 +776,16 @@ static int ventoy_check_official_device(grub_device_t dev)
             dev->disk->name
         );
 
-        dev2 = grub_device_open(devname);
+        grub_snprintf(
+    		debugmsg,
+    		sizeof(debugmsg),
+    		"DEBUG OPEN GPT3: devname=%s",
+    		devname
+		);
+		grub_printf("%s\n", debugmsg);
+		grub_refresh();
+
+		dev2 = grub_device_open(devname);
         if (!dev2)
         {
             return ventoy_set_check_result(
@@ -786,7 +795,12 @@ static int ventoy_check_official_device(grub_device_t dev)
         }
 
         fs = grub_fs_probe(dev2);
-        if (!fs)
+        grub_printf(
+    		"DEBUG FS PROBE: %s\n",
+    		fs ? fs->name : "NULL"
+		);
+		grub_refresh();
+		if (!fs)
         {
             grub_device_close(dev2);
             return ventoy_set_check_result(
@@ -797,7 +811,13 @@ static int ventoy_check_official_device(grub_device_t dev)
 
         fs->fs_label(dev2, &label);
 
-        if ((!label) ||
+        grub_printf(
+    		"DEBUG LABEL: %s\n",
+    		label ? label : "NULL"
+		);
+		grub_refresh();
+
+		if ((!label) ||
             grub_strncmp("VTOYEFI", label, 7))
         {
             grub_device_close(dev2);
