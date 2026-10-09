@@ -5367,9 +5367,11 @@ grub_printf("DEBUG CALLER: before partition size calculations\n");
 g_ventoy_disk_part_size[0] = ventoy_get_vtoy_partsize(0);
 g_ventoy_disk_part_size[1] = ventoy_get_vtoy_partsize(1);
 
-grub_printf("DEBUG CALLER: partition size calculations completed\n");
+grub_printf("DEBUG CALLER: before return 0\n");
+grub_refresh();
+grub_millisleep(5000);
 
-    return 0;
+return 0;
 }
 
 void ventoy_prompt_end(void)
