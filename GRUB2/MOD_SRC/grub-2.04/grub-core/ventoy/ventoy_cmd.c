@@ -830,10 +830,17 @@ static int ventoy_check_official_device(grub_device_t dev)
         grub_device_close(dev2);
     }
 
-    /* MBR check */
+    /* MBR / GPT debug */
+    grub_printf("DEBUG MBR: before disk open\n");
+    grub_refresh();
+
     disk = grub_disk_open(dev->disk->name);
+
     if (!disk)
     {
+        grub_printf("DEBUG MBR: disk open FAILED\n");
+        grub_refresh();
+
         return ventoy_set_check_result(
             11,
             "Disk open failed"
@@ -841,26 +848,72 @@ static int ventoy_check_official_device(grub_device_t dev)
     }
 
     grub_memset(mbr, 0, 512);
-    grub_disk_read(disk, 0, 0, 512, mbr);
+
+    grub_printf("DEBUG MBR: before sector read\n");
+    grub_refresh();
+
+    if (grub_disk_read(disk, 0, 0, 512, mbr))
+    {
+        grub_printf(
+            "DEBUG MBR: read FAILED, grub_errno=%d\n",
+            grub_errno
+        );
+        grub_refresh();
+
+        grub_disk_close(disk);
+
+        return ventoy_set_check_result(
+            13,
+            "MBR sector read failed"
+        );
+    }
+
     grub_disk_close(disk);
+
+    grub_printf(
+        "DEBUG GPT SIGNATURE: %.8s\n",
+        g_ventoy_part_info->Head.Signature
+    );
+    grub_refresh();
 
     if (grub_strncmp(
             g_ventoy_part_info->Head.Signature,
             "EFI PART",
-            8) != 0)
+            8) == 0)
     {
+        grub_printf(
+            "DEBUG MBR: GPT detected, comparison SKIPPED\n"
+        );
+        grub_refresh();
+    }
+    else
+    {
+        grub_printf(
+            "DEBUG MBR: legacy MBR detected, checking\n"
+        );
+        grub_refresh();
+
         if (grub_memcmp(g_check_mbr_data, mbr, 0x30) ||
             grub_memcmp(
                 g_check_mbr_data + 0x30,
                 mbr + 0x190,
                 16))
         {
+            grub_printf("DEBUG MBR: comparison FAILED\n");
+            grub_refresh();
+
             return ventoy_set_check_result(
                 12,
                 "MBR check failed"
             );
         }
+
+        grub_printf("DEBUG MBR: comparison OK\n");
+        grub_refresh();
     }
+
+    grub_printf("DEBUG CHECK: success return reached\n");
+    grub_refresh();
 
     return ventoy_set_check_result(0, NULL);
 }
