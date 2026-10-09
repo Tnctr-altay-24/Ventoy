@@ -5338,19 +5338,36 @@ int ventoy_load_part_table(const char *diskname)
     grub_snprintf(name, sizeof(name), "%s,1", diskname);
     dev = grub_device_open(name);
     if (dev)
-    {
-        /* Check for official Ventoy device */
-        ret = ventoy_check_official_device(dev);
-        grub_device_close(dev);
+{
+    grub_printf("DEBUG CALLER: before official device check\n");
 
-        if (ret)
-        {
-            return 1;
-        }
+    /* Check for official Ventoy device */
+    ret = ventoy_check_official_device(dev);
+
+    grub_printf("DEBUG CALLER: returned ret=%d\n", ret);
+
+    grub_device_close(dev);
+    grub_printf("DEBUG CALLER: device closed\n");
+
+    if (ret)
+    {
+        grub_printf("DEBUG CALLER: ret is nonzero, returning 1\n");
+        return 1;
     }
 
-    g_ventoy_disk_part_size[0] = ventoy_get_vtoy_partsize(0);
-    g_ventoy_disk_part_size[1] = ventoy_get_vtoy_partsize(1);
+    grub_printf("DEBUG CALLER: check passed\n");
+}
+else
+{
+    grub_printf("DEBUG CALLER: grub_device_open failed for %s\n", name);
+}
+
+grub_printf("DEBUG CALLER: before partition size calculations\n");
+
+g_ventoy_disk_part_size[0] = ventoy_get_vtoy_partsize(0);
+g_ventoy_disk_part_size[1] = ventoy_get_vtoy_partsize(1);
+
+grub_printf("DEBUG CALLER: partition size calculations completed\n");
 
     return 0;
 }
